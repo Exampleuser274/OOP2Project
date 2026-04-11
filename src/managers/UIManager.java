@@ -22,10 +22,10 @@ public class UIManager {
 			mainInt = scanner.nextInt();
 			switch(mainInt) {
 			case 1:
-				new AccountManager();
+				new AccountManager(scanner);
 				break;
 			case 2:
-				new EquipmentManager();
+				new EquipmentManager(scanner);
 				break;
 			case 3:
 				System.out.println("Goodbye");
@@ -33,6 +33,8 @@ public class UIManager {
 				scanner.close();
 				main = false;
 				break;
+			default:
+				System.out.println("Error. Enter 1 to 3");
 			}//switch
 			
 		}//main loop
