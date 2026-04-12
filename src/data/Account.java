@@ -1,19 +1,19 @@
 package data;
 
 public abstract class Account {
-	String id;
+	int id;
 	String firstName;
 	String lastName;
-	public Account(String id, String firstName, String lastName) {
+	public Account(int id, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getFirstName() {

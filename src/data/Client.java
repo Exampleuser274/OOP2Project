@@ -3,7 +3,7 @@ package data;
 public class Client extends Account{
 	String membershipStatus;
 	String membershipType;
-	public Client(String id, String firstName, String lastName,String membershipStatus,String membershipType) {
+	public Client(int id, String firstName, String lastName,String membershipStatus,String membershipType) {
 		super(id, firstName, lastName);
 		this.membershipStatus = membershipStatus;
 		this.membershipType = membershipType;

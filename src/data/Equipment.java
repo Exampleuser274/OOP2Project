@@ -1,19 +1,19 @@
 package data;
 
 public class Equipment {
-	String id;
+	int id;
 	String name;
 	String status;
-	public Equipment(String id, String name, String status) {
+	public Equipment(int id, String name, String status) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.status = status;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
