@@ -1,10 +1,10 @@
 package data;
 
-public class Employee extends Account{
-	
+public class Employee extends Account {
+
 	String employmentType;
-	
-	public Employee(int id, String firstName, String lastName,String employmentType) {
+
+	public Employee(int id, String firstName, String lastName, String employmentType) {
 		super(id, firstName, lastName);
 		this.employmentType = employmentType;
 	}
@@ -16,6 +16,5 @@ public class Employee extends Account{
 	public void setEmploymentType(String employmentType) {
 		this.employmentType = employmentType;
 	}
-	
 
 }

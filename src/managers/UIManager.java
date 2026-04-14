@@ -1,13 +1,16 @@
 package managers;
 
+import java.sql.*;
 import java.util.Scanner;
 
 
 public class UIManager {
-	
 	public UIManager() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void Menu(Scanner scanner, Connection conn,EquipmentManager equip,AccountManager account) {
 		boolean main = true;
-		Scanner scanner = new Scanner(System.in);
 		int mainInt;
 		while (main) {
 			System.out.println("Welcome to the gym manager system");
@@ -20,17 +23,16 @@ public class UIManager {
 			    scanner.next();
 			}//scanner check
 			mainInt = scanner.nextInt();
+			scanner.nextLine();
 			switch(mainInt) {
 			case 1:
-				new AccountManager(scanner);
+				account.menu(scanner, conn);
 				break;
 			case 2:
-				new EquipmentManager(scanner);
+				equip.menu(scanner, conn);
 				break;
 			case 3:
 				System.out.println("Goodbye");
-				//ConnectionManager.disconnect();
-				scanner.close();
 				main = false;
 				break;
 			default:
@@ -38,5 +40,5 @@ public class UIManager {
 			}//switch
 			
 		}//main loop
-	}//constructor
+	}
 }

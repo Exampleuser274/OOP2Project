@@ -18,12 +18,9 @@ public class ConnectionManager {
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "password";
 
-    public ConnectionManager() {
-        connect();
-    }
 
     //establishes connection to the db
-    public void connect() {
+    public Connection connect() {
 		final String DB_URL = String.format("jdbc:mariadb://%s:%d/%s?user=%s&password=%s", 
 				SERVER, PORT, DATABASE, USERNAME, PASSWORD);
 		
@@ -31,12 +28,19 @@ public class ConnectionManager {
 		try {
 			conn = DriverManager.getConnection(DB_URL);
 			System.out.println("DB connection established");
-			stmt = conn.createStatement();
-			
 		}catch(SQLException e) {
 			System.out.println("Problem connecting to DB: " + e.getMessage());
 		}
+		return conn;
 	}
 
-
+    public void disconnect(){
+        try{
+            conn.close();
+            scanner.close();
+            System.out.println("DB connection closed");
+        }catch (SQLException e){
+            System.out.println("Problem disconnecting from DB: " + e.getMessage());
+        }
+    }
 }

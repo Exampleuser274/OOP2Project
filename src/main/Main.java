@@ -1,57 +1,23 @@
 package main;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
-import managers.ConnectionManager;
+import managers.*;
 
 public class Main {
-	private Scanner scanner = new Scanner(System.in);
-	private Connection conn = null;
-	private Statement stmt = null;
+	
 	public static void main(String[] args) {
-		new ConnectionManager();
+		Scanner scanner = new Scanner(System.in);
+		ConnectionManager connectionManager = new ConnectionManager();
+		Connection conn = connectionManager.connect();
+		UIManager uiManager = new UIManager();
+		EquipmentManager equip = new EquipmentManager();
+		AccountManager account = new AccountManager();
+		uiManager.Menu(scanner, conn,equip,account);
+		scanner.close();
+		connectionManager.disconnect();
 	}
-
-	private void displayChoice(){
-        int choice = 0;
-        while(choice != 5){
-        	
-        
-            System.out.println("1. Add a new data entry");
-            System.out.println("2. Display data based on user choices");
-            System.out.println("3. Modify existing data");
-            System.out.println("4. remove data from system");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
-            switch (choice) {
-                case 1:
-                    addClient();
-                    break;
-                case 2:
-                	readData();
-                    break;
-                case 3:
-                	addEmployee();
-                    break;
-                case 4:
-                    viewMembersAndClasses();
-                    break;
-                case 5:
-                    disconnect();
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-        
-    }
 
     public void addClient(){
 		System.out.println("Adding an ID...");
@@ -174,14 +140,6 @@ public class Main {
 
 
 
-    public void disconnect(){
-        try{
-            conn.close();
-            scanner.close();
-            System.out.println("DB connection closed");
-        }catch (SQLException e){
-            System.out.println("Problem disconnecting from DB: " + e.getMessage());
-        }
-    }
+    
 
 }

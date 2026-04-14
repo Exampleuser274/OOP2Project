@@ -1,7 +1,11 @@
 package managers;
+import java.sql.*;
 import java.util.Scanner;
 public class AccountManager {
-	public AccountManager(Scanner scanner) {
+	public AccountManager() {
+		
+	}//constructor
+	public void menu(Scanner scanner, Connection conn) {
 		boolean accountLoop = true;
 		boolean accountSwitch = true;
 		int accountInt;
@@ -15,6 +19,7 @@ public class AccountManager {
 			    scanner.next();
 			}//scanner check
 			accountType = scanner.nextInt();
+			scanner.nextLine();
 			if (accountType == 1 || accountType == 2) {
 				accountSwitch = false;
 			}else {
@@ -33,6 +38,7 @@ public class AccountManager {
 			    scanner.next();
 			}//scanner check
 			accountInt = scanner.nextInt();
+			scanner.nextLine();
 			switch(accountInt) {
 			case 1:
 				AddAccount(accountType);
@@ -53,8 +59,7 @@ public class AccountManager {
 				System.out.println("Error. Enter 1 to 5");
 			}//case
 		}//menu Loop
-	}//constructor
-
+	}
 	private void removeAccount(int accountType) {
 		// TODO Auto-generated method stub
 		
