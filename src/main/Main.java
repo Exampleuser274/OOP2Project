@@ -1,11 +1,12 @@
 package main;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import managers.ConnectionManager;
 
 public class Main {
-
+	private Scanner scanner = new Scanner(System.in);
 	public static void main(String[] args) {
 		new ConnectionManager();
 	}
@@ -13,6 +14,8 @@ public class Main {
 	private void displayChoice(){
         int choice = 0;
         while(choice != 5){
+        	
+        
             System.out.println("1. Add a new data entry");
             System.out.println("2. Display data based on user choices");
             System.out.println("3. Modify existing data");
@@ -50,10 +53,10 @@ public class Main {
 		String id = scanner.nextLine();
 
 		System.out.println("Adding a first_name...");
-		String firstName = scanner.nextLine();
+		String firstName = Scanner.nextLine();
 
 		System.out.println("Enter last_name: ");
-		String lastName = scanner.nextLine();
+		String lastName = Scanner.nextLine();
 
 		System.out.println("Enter membership_status: ");
 		boolean membershipStatus = Boolean.parseBoolean(scanner.nextLine());
