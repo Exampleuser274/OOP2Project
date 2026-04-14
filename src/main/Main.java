@@ -1,12 +1,17 @@
 package main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 import managers.ConnectionManager;
 
 public class Main {
 	private Scanner scanner = new Scanner(System.in);
+	private Connection conn = null;
+	private Statement stmt = null;
 	public static void main(String[] args) {
 		new ConnectionManager();
 	}
@@ -30,10 +35,10 @@ public class Main {
                     addClient();
                     break;
                 case 2:
-                    addEmployee();
+                	readData();
                     break;
                 case 3:
-                    readData();
+                	addEmployee();
                     break;
                 case 4:
                     viewMembersAndClasses();
@@ -53,10 +58,10 @@ public class Main {
 		String id = scanner.nextLine();
 
 		System.out.println("Adding a first_name...");
-		String firstName = Scanner.nextLine();
+		String firstName = scanner.nextLine();
 
 		System.out.println("Enter last_name: ");
-		String lastName = Scanner.nextLine();
+		String lastName = scanner.nextLine();
 
 		System.out.println("Enter membership_status: ");
 		boolean membershipStatus = Boolean.parseBoolean(scanner.nextLine());
@@ -82,6 +87,18 @@ public class Main {
 
 
 		String sql = String.format("INSERT INTO employee (id, first_name, last_name, employee_type) VALUES ('%s', '%s', '%s', '%s')", id, firstName, lastName, employeeType);
+		
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1,id);
+			pst.setString(2, firstName);
+			pst.setString(3, lastName);
+			pst.setString(4, employeeType);
+			int count = pst.executeUpdate();
+			System.out.println(count + " Record(s) inserted.");
+		} catch (SQLException e) {
+			System.out.println("Error while adding Employee: " + e.getMessage());
+		}
 	}
 
 
@@ -94,21 +111,25 @@ public class Main {
 			System.out.print("Enter your choice: ");
 			choice = scanner.nextInt();
 			scanner.nextLine(); // Consume newline
-
+			String sql = "";
 			switch (choice) {
 				case 1:
-					String sql = "SELECT * FROM employee";
+					sql = "SELECT * FROM employee";
 					break;
 				case 2:
-					String sql = "SELECT * FROM client";
+					sql = "SELECT * FROM client";
 					break;
 				case 3:
-					String sql = "SELECT * FROM equipment";
+					sql = "SELECT * FROM equipment";
 					break;
 				default:
 					System.out.println("Invalid choice. Please try again.");
 			}
 		}
+	}
+	
+	public void viewMembersAndClasses() {
+		
 	}
 
 	public void deleteData(){
@@ -148,8 +169,8 @@ public class Main {
 			
 			String sql = "DELETE FROM students WHERE student_id = ?";
 
+		}
 	}
-
 
 
 
