@@ -44,37 +44,63 @@ public class EquipmentManager {
 			}//case
 		}//menu Loop
 	}//menu function
-	private void removeEquipment(Scanner scanner, Connection conn) {
+
+	private void AddEquipment(Scanner scanner,Connection conn) { 
 		System.out.println("Enter ID: ");
 		while (!scanner.hasNextInt()) {
 		    System.out.println("Please Enter a valid input");
 		    scanner.next();
 		}//scanner check
-		int removeID = scanner.nextInt();
+		int newInt = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("Enter Name: ");
+		String newName = scanner.nextLine();
+		System.out.println("Enter Status: ");
+		String newStatus = scanner.nextLine();
+		String sql = "INSERT INTO equipment (id,name,status) VALUES(?,?,?)";
+		try {
+			//stmt.executeUpdate(sql);
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, newInt);
+			pst.setString(2, newName);
+			pst.setString(3, newStatus);
+			int count = pst.executeUpdate();
+			System.out.println(count + "record(s) inserted");
+		} catch (SQLException e) {
+			System.out.println("Error adding student: " + e.getMessage());
+		}
+		
+	}//AddEquipment
+	
+	private void searchEquipment(Scanner scanner, Connection conn) {
+		System.out.println("Enter ID: ");
+		while (!scanner.hasNextInt()) {
+		    System.out.println("Please Enter a valid input");
+		    scanner.next();
+		}//scanner check
+		int searchID = scanner.nextInt();
 		scanner.nextLine();
 		String sql = "SELECT * FROM equipment WHERE id = ?";
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, removeID);
+			pst.setInt(1, searchID);
 			
 			ResultSet rs = pst.executeQuery();
-			if(rs.next()==false) {
-				System.out.println("There is no equipment with ID: " + removeID);
+			if(rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String status = rs.getString("status");
+				Equipment eq = new Equipment(id,name,status);
+				System.out.println(eq);
 			}else {
-				sql = "DELETE FROM equipment WHERE id = ?";
-				try {
-					pst = conn.prepareStatement(sql);
-					pst.setInt(1, removeID);
-					pst.executeUpdate();
-					System.out.println("Equipment removed");
-				} catch (SQLException e) {
-					System.out.println("Error removing equipment record: " + e.getMessage());
-				}
+				System.out.println("There is no equipment with ID: " + searchID);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while retrieving data: " + e.getMessage());
-		}	
-	}
+		}
+		
+	}//SearchEquipment end
+
 
 	private void updateEquipment(Scanner scanner, Connection conn) {
 		System.out.println("Enter ID: ");
@@ -111,62 +137,41 @@ public class EquipmentManager {
 		} catch (SQLException e) {
 			System.out.println("Error while retrieving data: " + e.getMessage());
 		}	
-	}
-
-	private void searchEquipment(Scanner scanner, Connection conn) {
+	}//UpdateEquipment end
+	
+	private void removeEquipment(Scanner scanner, Connection conn) {
 		System.out.println("Enter ID: ");
 		while (!scanner.hasNextInt()) {
 		    System.out.println("Please Enter a valid input");
 		    scanner.next();
 		}//scanner check
-		int searchID = scanner.nextInt();
+		int removeID = scanner.nextInt();
 		scanner.nextLine();
 		String sql = "SELECT * FROM equipment WHERE id = ?";
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, searchID);
+			pst.setInt(1, removeID);
 			
 			ResultSet rs = pst.executeQuery();
-			if(rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String status = rs.getString("status");
-				Equipment eq = new Equipment(id,name,status);
-				System.out.println(eq);
+			if(rs.next()==false) {
+				System.out.println("There is no equipment with ID: " + removeID);
 			}else {
-				System.out.println("There is no equipment with ID: " + searchID);
+				sql = "DELETE FROM equipment WHERE id = ?";
+				try {
+					pst = conn.prepareStatement(sql);
+					pst.setInt(1, removeID);
+					pst.executeUpdate();
+					System.out.println("Equipment removed");
+				} catch (SQLException e) {
+					System.out.println("Error removing equipment record: " + e.getMessage());
+				}
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while retrieving data: " + e.getMessage());
-		}
-		
-	}
+		}	
+	}//RemoveEquipment
 
-	private void AddEquipment(Scanner scanner,Connection conn) {
-		System.out.println("Enter ID: ");
-		while (!scanner.hasNextInt()) {
-		    System.out.println("Please Enter a valid input");
-		    scanner.next();
-		}//scanner check
-		int newInt = scanner.nextInt();
-		scanner.nextLine();
-		System.out.println("Enter Name: ");
-		String newName = scanner.nextLine();
-		System.out.println("Enter Status: ");
-		String newStatus = scanner.nextLine();
-		String sql = "INSERT INTO equipment (id,name,status) VALUES(?,?,?)";
-		try {
-			//stmt.executeUpdate(sql);
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, newInt);
-			pst.setString(2, newName);
-			pst.setString(3, newStatus);
-			int count = pst.executeUpdate();
-			System.out.println(count + "record(s) inserted");
-		} catch (SQLException e) {
-			System.out.println("Error adding student: " + e.getMessage());
-		}
-		
-	}
+
+
 	
 }//Class
