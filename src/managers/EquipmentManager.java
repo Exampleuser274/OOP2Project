@@ -84,7 +84,6 @@ public class EquipmentManager {
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setInt(1, searchID);
-			
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()) {
 				int id = rs.getInt("id");
@@ -123,7 +122,7 @@ public class EquipmentManager {
 				String newName = scanner.nextLine();
 				System.out.println("Enter Status: ");
 				String newStatus = scanner.nextLine();
-				sql = "UPDATE equipment SET name = ?, status = ? ,WHERE id = ?";
+				sql = "UPDATE equipment SET name = ?, status = ? WHERE id = ?";
 				try {
 					pst = conn.prepareStatement(sql);
 					pst.setString(1,newName);

@@ -14,8 +14,8 @@ public class AccountManager {
 		int accountType = 0;
 		while (accountSwitch) {
 			System.out.println("Which type of account?");
-			System.out.println("1. Client");
-			System.out.println("2. Employee");
+			System.out.println("1. Employee");
+			System.out.println("2. Client");
 			while (!scanner.hasNextInt()) {
 			    System.out.println("Please Enter a valid input");
 			    scanner.next();
@@ -87,7 +87,7 @@ public class AccountManager {
 			status = scanner.nextLine();
 			System.out.println("Enter Membership type: ");
 			type = scanner.nextLine();
-			sql = "INSERT INTO employee (id,first_name,last_name,member_status,member_type) VALUES(?,?,?,?)";
+			sql = "INSERT INTO client (id,first_name,last_name,member_status,member_type) VALUES(?,?,?,?,?)";
 		}
 		
 		try {
@@ -184,13 +184,13 @@ public class AccountManager {
 				if (accountType==1) {
 					System.out.println("Enter Employment Type: ");
 					type = scanner.nextLine();
-					sql = "UPDATE employee SET first_name = ?, last_name = ?,employee_status = ? ,WHERE id = ?";
+					sql = "UPDATE employee SET first_name = ?, last_name = ?,employee_type = ? WHERE id = ?";
 				}else {
 					System.out.println("Enter Membership status: ");
 					status = scanner.nextLine();
 					System.out.println("Enter Membership type: ");
 					type = scanner.nextLine();
-					sql = "UPDATE employee SET first_name = ?, last_name = ?,member_type = ?,member_status = ? ,WHERE id = ?";
+					sql = "UPDATE client SET first_name = ?, last_name = ?,member_type = ?,member_status = ? WHERE id = ?";
 				}
 				try {
 					pst = conn.prepareStatement(sql);
@@ -226,9 +226,9 @@ public class AccountManager {
 		int removeID = scanner.nextInt();
 		scanner.nextLine();
 		if (accountType==1) {
-			sql = "DELETE FROM employee WHERE id = ?";
+			sql = "SELECT * FROM employee WHERE id = ?";
 		}else {
-			sql = "DELETE FROM client WHERE id = ?";
+			sql = "SELECT * FROM client WHERE id = ?";
 		}
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
@@ -240,6 +240,11 @@ public class AccountManager {
 			}else {
 				
 				try {
+					if (accountType==1) {
+						sql = "DELETE FROM employee WHERE id = ?";
+					}else {
+						sql = "DELETE FROM client WHERE id = ?";
+					}
 					pst = conn.prepareStatement(sql);
 					pst.setInt(1, removeID);
 					pst.executeUpdate();
