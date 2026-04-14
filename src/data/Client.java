@@ -26,4 +26,9 @@ public class Client extends Account {
 		this.membershipType = membershipType;
 	}
 
+	@Override
+	public String toString() {
+		return "Name: " + firstName + " " + lastName + "\nMembership: " + membershipStatus + " " + membershipType;
+	}
+
 }

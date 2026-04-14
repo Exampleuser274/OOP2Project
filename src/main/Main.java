@@ -18,7 +18,7 @@ public class Main {
 		scanner.close();
 		connectionManager.disconnect();
 	}
-
+/*
     public void addClient(){
 		System.out.println("Adding an ID...");
 		String id = scanner.nextLine();
@@ -141,5 +141,5 @@ public class Main {
 
 
     
-
+*/
 }

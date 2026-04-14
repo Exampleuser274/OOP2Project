@@ -2,6 +2,8 @@ package data;
 
 public class Employee extends Account {
 
+	
+
 	String employmentType;
 
 	public Employee(int id, String firstName, String lastName, String employmentType) {
@@ -16,5 +18,8 @@ public class Employee extends Account {
 	public void setEmploymentType(String employmentType) {
 		this.employmentType = employmentType;
 	}
-
+	@Override
+	public String toString() {
+		return "Name: " + firstName + " " + lastName + "\nEmployment Type: " + employmentType;
+	}
 }

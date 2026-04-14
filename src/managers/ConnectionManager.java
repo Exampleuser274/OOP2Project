@@ -1,15 +1,12 @@
 package managers;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 import java.util.Scanner;
 
 public class ConnectionManager {
 
     private Connection conn = null;
-	private Statement stmt = null;
     private Scanner scanner = new Scanner(System.in);
 	
 	private static final String SERVER = "localhost";

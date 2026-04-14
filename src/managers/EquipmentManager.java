@@ -66,10 +66,9 @@ public class EquipmentManager {
 					pst = conn.prepareStatement(sql);
 					pst.setInt(1, removeID);
 					pst.executeUpdate();
-					System.out.println("Student removed");
-					
+					System.out.println("Equipment removed");
 				} catch (SQLException e) {
-					System.out.println("Error removing student record: " + e.getMessage());
+					System.out.println("Error removing equipment record: " + e.getMessage());
 				}
 			}
 		} catch (SQLException e) {
